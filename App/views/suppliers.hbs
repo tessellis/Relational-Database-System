@@ -1,0 +1,115 @@
+<!-- Citations 
+1) The general structure for this file is based on the CS 340 nodejs-starter-app code
+2) Date: 12/09/24
+3) Originality: Adapted (only structurally similar)
+4) Source: (https://github.com/osu-cs340-ecampus/nodejs-starter-app) 
+--> 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+<header>
+    <h2 class="header-h2">ISOS Management System</h2>
+    <nav class="global">
+        <a href="/"> <strong>Home</strong></a>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <nav class="global-entities">
+            <a href="/customers"> <strong>Customers</strong></a>
+            <a href="/orders"> <strong>Orders</strong></a>
+            <a href="/products"> <strong>Products</strong></a>
+            <a href="/brands"> <strong>Brands</strong></a>
+            <a href="/suppliers" class="customers-link"> <strong>Suppliers</strong></a>
+            <a href="/orderProducts"> <strong>OrderProducts</strong></a>
+            <a href="/productInstances"> <strong>ProductInstances</strong></a>
+        </nav>
+    </section>
+    <section id="browse">
+        <h2>Suppliers</h2>
+        <table id="suppliers-table">
+            <thead>
+                <tr>
+                    <th><button class="btn" onclick="showAddForm()">Add</button></th>
+                    <th></th>
+                    <th>Supplier ID</th>
+                    <th>Supplier Name</th>
+                    <th>Contact Info</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr data-id="{{supplierID}}">
+                    <td><button class="btn-edit" onclick="showUpdateForm({{supplierID}})">Edit</button></td>
+                    <td><button class="btn-delete" onclick="deleteSupplier({{supplierID}})">Delete</button></td>
+                    <td>{{supplierID}}</td>
+                    <td>{{supplierName}}</td>
+                    <td>{{contactInfo}}</td>
+                    <td>{{supplierAddress}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="add-form" style="display: none;">
+        <div id="browse">
+            <h2>Add Supplier</h2>
+            <form id="addSupplierForm">
+                <label for="supplierName">Supplier Name</label>
+                <input type="text" id="supplierName" name="supplierName">
+
+                <label for="contactInfo">Contact Info</label>
+                <input type="text" id="contactInfo" name="contactInfo">
+
+                <label for="supplierAddress">Address</label>
+                <input type="text" id="supplierAddress" name="supplierAddress">
+
+                <button type="submit" class="btn table-btn">Add Supplier</button>
+                <button type="button" class="btn-delete table-btn2" onclick="hideAddForm()">Cancel</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="update-form" style="display: none;">
+        <div id="browse">
+            <h2>Update Supplier</h2>
+            <form id="updateSupplierForm">
+                <input type="hidden" id="updateSupplierID" />
+
+               <label for="updateSupplierName">Supplier Name</label>
+                <select id="updateSupplierName" name="supplierName" required>
+                    <option value="" disabled selected>Select a Supplier</option>
+                    {{#each suppliers}}
+                    <option value="{{this.supplierID}}" {{#if (eq ../supplierID this.supplierID)}}selected{{/if}}>
+                        {{this.supplierName}}
+                    </option>
+                    {{/each}}
+                </select>
+
+
+                <label for="updateContactInfo">Contact Info</label>
+                <input type="text" id="updateContactInfo">
+
+                <label for="updateSupplierAddress">Address</label>
+                <input type="text" id="updateSupplierAddress">
+
+                <button type="submit" class="btn table-btn">Update Supplier</button>
+                <button type="button" class="btn-delete table-btn2" onclick="hideUpdateForm()">Cancel</button>
+            </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <nav class="global4">
+        <a> &copy; Group 72: Tess Ellis & Willem De Veirman</a>
+    </nav>
+</footer>
+
+<script src="/js/suppliers.js"></script>

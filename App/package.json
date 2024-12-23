@@ -1,0 +1,19 @@
+{
+  "name": "sports-outdoors-sales-management",
+  "version": "1.0.0",
+  "description": "International Sports & Outdoors Sales Management System",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"No test specified\" && exit 1"
+  },
+  "author": "Group 72: Tess Ellis & Willem De Veirman",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1",
+    "forever": "^4.0.3",
+    "handlebars-layouts": "^3.1.4",
+    "mysql": "^2.18.1"
+  }
+}

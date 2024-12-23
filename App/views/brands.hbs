@@ -1,0 +1,117 @@
+<!-- views/brands.hbs -->
+
+<!-- Citations 
+1) The general structure for this file is based on the CS 340 nodejs-starter-app code
+2) Date: 12/09/24
+3) Originality: Adapted (only structurally similar)
+4) Source: (https://github.com/osu-cs340-ecampus/nodejs-starter-app) 
+--> 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+ <header> 
+    <h2 class="header-h2">ISOS Management System </h2> 
+    <nav class="global">
+        <a href="/"> <strong>Home</strong></a>
+    </nav>
+</header>
+
+<main>
+    <section>
+            <nav class="global-entities">
+                <a href="/customers"> <strong>Customers</strong></a>
+                <a href="/orders"> <strong>Orders</strong></a>
+                <a href="/products"> <strong>Products</strong></a>
+                <a href="/brands" class="customers-link"> <strong>Brands</strong></a>
+                <a href="/suppliers"> <strong>Suppliers</strong></a>
+                <a href="/orderProducts"> <strong>OrderProducts</strong></a>
+                <a href="/productInstances"> <strong>ProductInstances</strong></a>
+            </nav>
+        </section>
+    <section id="browse">
+        <h2>Brands</h2>
+        <table id="brands-table">
+            <thead>
+                <tr>
+                    <th><button class="btn" onclick="showAddForm()">Add</button></th>
+                    <th></th>
+                    <th>Brand ID</th>
+                    <th>Brand Name</th>
+                    <th>Contact Info</th>
+                    <th>Relationship Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr data-id="{{brandID}}">
+                    <td><button class="btn-edit" onclick="showUpdateForm({{brandID}})">Edit</button></td>
+                    <td><button class="btn-delete" onclick="deleteBrand({{brandID}})">Delete</button></td>
+                    <td>{{brandID}}</td>
+                    <td>{{brandName}}</td>
+                    <td>{{contactInfo}}</td>
+                    <td>{{relationshipType}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
+
+    <section id="add-form" style="display: none;">
+        <div id="browse">
+        <h2>Add Brand</h2>
+        <form id="addBrandForm">
+            <label for="brandName">Brand Name</label>
+            <input type="text" id="brandName" name="brandName" required>
+
+            <label for="contactInfo">Contact Info</label>
+            <input type="text" id="contactInfo" name="contactInfo">
+
+            <label for="relationshipType">Relationship Type</label>
+            <select id="relationshipType" name="relationshipType">
+                <option value="0">Please Select a Relationship Type</option>
+                <option value="exclusive">exclusive</option>
+                <option value="preferred">preferred</option>
+                <option value="direct">direct</option>
+                <option value="indirect">indirect</option>
+                <option value="pending">pending</option>
+            </select>
+
+            <button type="submit" class="btn table-btn">Add Brand</button>
+            <button type="button" class="btn-delete table-btn2" onclick="hideAddForm()">Cancel</button>
+        </form>
+        </div>
+    </section>
+
+    <section id="update-form" style="display: none;">
+        <div id="browse">
+        <h2>Update Brand</h2>
+        <form id="updateBrandForm">
+
+            <input type="hidden" id="updateBrandID" />
+            
+            <label for="updateBrandName">Brand Name</label>
+            <input type="text" id="updateBrandName" name="brandName"/>
+
+            <label for="updateContactInfo">Contact Info</label>
+            <input type="text" id="updateContactInfo" />
+            
+            <label for="updateRelationshipType">Relationship Type</label>
+            <input type="text" id="updateRelationshipType">
+
+            <button type="submit" class="btn table-btn">Update Brand</button>
+            <button type="button" class="btn-delete table-btn2" onclick="hideUpdateForm()">Cancel</button>
+        </form>
+        </div>
+    </section>
+</main>
+
+<footer>
+         <nav class="global4">
+            <a> &copy; Group 72: Tess Ellis & Willem De Veirman</a>
+         </nav>
+        </footer>
+
+<script src="/js/brands.js"></script>

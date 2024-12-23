@@ -1,0 +1,157 @@
+<!-- views/orderProducts.hbs -->
+
+<!-- Citations 
+1) The general structure for this file is based on the CS 340 nodejs-starter-app code
+2) Date: 12/09/24
+3) Originality: Adapted (only structurally similar)
+4) Source: (https://github.com/osu-cs340-ecampus/nodejs-starter-app) 
+--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <title>OrderProducts</title>
+</head>
+<body>
+    <header> 
+        <h2 class="header-h2">ISOS Management System</h2> 
+        <nav class="global">
+            <a href="/"><strong>Home</strong></a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <nav class="global-entities">
+                <a href="/customers"> <strong>Customers</strong></a>
+                <a href="/orders"> <strong>Orders</strong></a>
+                <a href="/products"> <strong>Products</strong></a>
+                <a href="/brands"> <strong>Brands</strong></a>
+                <a href="/suppliers"> <strong>Suppliers</strong></a>
+                <a href="/orderProducts" class="customers-link"> <strong>OrderProducts</strong></a>
+                <a href="/productInstances"> <strong>ProductInstances</strong></a>
+            </nav>
+        </section>
+        <section id="browse">
+            <h2>OrderProducts</h2>
+            <table id="orderProducts-table">
+                <thead>
+                    <tr>
+                        <th><button class="btn" onclick="showAddForm()">Add</button></th>
+                        <th></th>
+                        <th>Order Product ID</th>
+                        <th>Order ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th> <!-- New Column -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr data-id="{{orderProductID}}">
+                        <td><button class="btn-edit" onclick="showUpdateForm({{orderProductID}})">Edit</button></td>
+                        <td><button class="btn-delete" onclick="deleteOrderProduct({{orderProductID}})">Delete</button></td>
+                        <td>{{orderProductID}}</td>
+                        <td>{{orderID}}</td>
+                        <td>{{productName}}</td>
+                        <td>{{quantity}}</td>
+                        <td>{{unitPrice}}</td>
+                        <td>{{totalPrice}}</td>
+                        <td class="order-date">{{orderDate}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+        <section id="add-form" style="display: none;">
+            <div id="browse">
+            <h2>Add Product</h2>
+            <form id="addOrderProductForm">
+
+                <label for="orderID">Order</label>
+                <select id="orderID" name="orderID" required>
+                    <option value="" disabled selected>Select an Order</option>
+                    {{#each orders}}
+                    <option value="{{this.orderID}}">{{this.orderID}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="productID">Product</label>
+                <select id="productID" name="productID" required>
+                    <option value="" disabled selected>Select a Product</option>
+                    {{#each products}}
+                    <option value="{{this.productID}}">{{this.productName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" name="quantity" required>
+
+                <label for="unitPrice">Unit Price</label>
+                <input type="number" id="unitPrice" name="unitPrice" step="0.01" required>
+
+                <label for="totalPrice">Total Price</label>
+                <!-- Total Price input should be calculated dynamically, so it will be readonly -->
+                <input type="number" id="totalPrice" name="totalPrice" step="0.01" readonly>
+
+                <label for="orderDate">Order Date</label>
+                <select id="orderDate" name="orderDate" required>
+                    <option value="" disabled selected>Select a Product</option>
+                    {{#each orders}}
+                        <option value="{{this.orderID}}">{{this.orderDate}}</option>
+                    {{/each}}
+                </select>
+
+                <button type="submit" class="btn table-btn">Add OrderProduct</button>
+                <button type="button" class="btn-delete table-btn2" onclick="hideAddForm()">Cancel</button>
+            </form>
+            </div>
+        </section>
+
+        <section id="update-form" style="display: none;">
+            <div id="browse">
+                <h2>Update OrderProduct</h2>
+                <form id="updateOrderProductForm">
+
+  
+                <input type="hidden" id="updateOrderProductID" name="updateOrderProductID" value="{{this.orderProductID}}"> 
+
+                <input type="hidden" id="updateOrderID" name="updateOrderID" value="{{this.orderID}}"> 
+
+                <label for="updateProductID">Product</label>
+                <input type="hidden" id="updateProductID" name="updateProductID" value="{{this.productID}}">
+                <p>{{this.productName}}</p> 
+
+                <label for="updateQuantity">Quantity</label>
+                <input type="number" id="updateQuantity" name="updateQuantity" value="{{this.quantity}}" required> 
+
+
+                <label for="updateUnitPrice">Unit Price</label>
+                <input type="number" id="updateUnitPrice" name="updateUnitPrice" value="{{this.unitPrice}}" step="0.01" required> 
+
+
+                <label for="updateTotalPrice">Total Price</label>
+                <input type="number" id="updateTotalPrice" name="updateTotalPrice" value="{{this.totalPrice}}" step="0.01" readonly> 
+
+                <input type="hidden" id="updateOrderDate">
+
+
+                <button type="submit" class="btn table-btn">Update Product</button>
+                <button type="button" class="btn-delete table-btn2" onclick="hideUpdateForm()">Cancel</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <nav class="global4">
+            <a>&copy; Group 72: Tess Ellis & Willem De Veirman</a>
+        </nav>
+    </footer>
+    <script src="/js/orderProducts.js"></script>
+</body>

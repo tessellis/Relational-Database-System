@@ -1,0 +1,131 @@
+<!-- Citations 
+1) The general structure for this file is based on the CS 340 nodejs-starter-app code
+2) Date: 12/09/24
+3) Originality: Adapted (only structurally similar)
+4) Source: (https://github.com/osu-cs340-ecampus/nodejs-starter-app) 
+--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <title>Product Instances</title>
+</head>
+<body>
+    <header> 
+        <h2 class="header-h2">ISOS Management System</h2> 
+        <nav class="global">
+            <a href="/"><strong>Home</strong></a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <nav class="global-entities">
+                <a href="/customers"> <strong>Customers</strong></a>
+                <a href="/orders"> <strong>Orders</strong></a>
+                <a href="/products"> <strong>Products</strong></a>
+                <a href="/brands"> <strong>Brands</strong></a>
+                <a href="/suppliers"> <strong>Suppliers</strong></a>
+                <a href="/orderProducts"> <strong>OrderProducts</strong></a>
+                <a href="/productInstances" class="customers-link"> <strong>ProductInstances</strong></a>
+            </nav>
+        </section>
+        <section id="browse">
+            <h2>Product Instances</h2>
+            <table id="productInstances-table">
+                <thead>
+                    <tr>
+                        <th><button class="btn" onclick="showAddForm()">Add</button></th>
+                        <th></th>
+                        <th>Instance ID</th>
+                        <th>Order ID</th>
+                        <th>Product ID</th>
+                        <th>Serial Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each data}}
+                    <tr data-id="{{instanceID}}">
+                        <td><button class="btn-edit" onclick="showUpdateForm({{instanceID}})">Edit</button></td>
+                        <td><button class="btn-delete" onclick="deleteProductInstance({{instanceID}})">Delete</button></td>
+                        <td>{{instanceID}}</td>
+                        <td>{{orderID}}</td>
+                        <td>{{productID}}</td>
+                        <td>{{serialNumber}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+
+        <section id="add-form" style="display: none;">
+            <div id="browse">
+            <h2>Add Product Instance</h2>
+            <form id="addProductInstanceForm">
+                <label for="orderID">Order</label>
+                <select id="orderID" name="orderID">
+                    <option value="">Select Order (optional)</option>
+                    {{#each orders}}
+                    <option value="{{orderID}}">{{orderID}} - {{orderDate}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="productID">Product</label>
+                <select id="productID" name="productID" required>
+                    <option value="">Select Product</option>
+                    {{#each products}}
+                    <option value="{{productID}}">{{productID}} - {{productName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="serialNumber">Serial Number</label>
+                <input type="text" id="serialNumber" name="serialNumber" required>
+
+                <button type="submit" class="btn table-btn">Add Product Instance</button>
+                <button type="button" class="btn-delete table-btn2" onclick="hideAddForm()">Cancel</button>
+            </form>
+            </div>
+        </section>
+
+        <section id="update-form" style="display: none;">
+            <div id="browse">
+            <h2>Update Product Instance</h2>
+            <form id="updateProductInstanceForm">
+                <input type="hidden" id="updateInstanceID" name="instanceID">
+
+                <label for="updateOrderID">Order</label>
+                <select id="updateOrderID" name="orderID" disabled>
+                    <option value="">Select Order (optional)</option>
+                    {{#each orders}}
+                    <option value="{{orderID}}">{{orderID}} - {{orderDate}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="updateProductID">Product</label>
+                <select id="updateProductID" name="productID" disabled>
+                    <option value="">Select Product</option>
+                    {{#each products}}
+                    <option value="{{productID}}">{{productID}} - {{productName}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="updateSerialNumber">Serial Number</label>
+                <input type="text" id="updateSerialNumber" name="serialNumber" required>
+
+                <button type="submit" class="btn table-btn">Update Product Instance</button>
+                <button type="button" class="btn-delete table-btn2" onclick="hideUpdateForm()">Cancel</button>
+            </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <nav class="global4">
+            <a>&copy; Group 72: Tess Ellis & Willem De Veirman</a>
+        </nav>
+    </footer>
+
+    <script src="/js/productInstances.js"></script>
+</body>
+</html>
